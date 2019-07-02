@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
 
-// ## Generator Reducer Imports
 import gallery from '../modules/gallery/GalleryState';
 import app from '../modules/AppState';
 import calendar from '../modules/calendar/CalendarState';
 import accounts from '../modules/accounts/AccountsState';
+import auth from '../modules/login/AuthState';
 
 export default combineReducers({
-  // ## Generator Reducers
-  gallery,
+  auth,
   app,
-  calendar,
   accounts,
+  gallery,
+  calendar,
 });

@@ -35,7 +35,7 @@ categoriesMap.set("RESIDENTIAL_MORTGAGES", "Mortgages");
 categoriesMap.set("LEASES", "Leases");
 categoriesMap.set("TRADE_FINANCE", "Trades");
 
-export default function AccountsScreen(props) {
+export default class AccountsScreen extends React.Component {
 
   showAccountDetails = account => {
     this.props.navigation.navigate({
@@ -80,28 +80,30 @@ export default function AccountsScreen(props) {
     />)
   };
 
-  const categories = _.uniq(_.map(props.accounts, 'productCategory'));
-  const sections = [];
-  for (let index = 0; index < categories.length; index++) {
-    const cat = categories[index];
-    const filteredAccounts = _.filter(props.accounts, ['productCategory', cat]);
+  render() {
+    const categories = _.uniq(_.map(this.props.accounts, 'productCategory'));
+    const sections = [];
+    for (let index = 0; index < categories.length; index++) {
+      const cat = categories[index];
+      const filteredAccounts = _.filter(this.props.accounts, ['productCategory', cat]);
 
-    sections.push({ title: categoriesMap.get(cat), data: filteredAccounts });
+      sections.push({ title: categoriesMap.get(cat), data: filteredAccounts });
+    }
+
+    return (
+      <View>
+        <SectionList
+          sections={sections}
+          renderSectionHeader={({ section }) => <Text style={styles.productCategory}> {section.title} </Text>}
+          renderItem={this.renderItem}
+          keyExtractor={item => item.accountId}
+          onRefresh={() => this.props.loadAccounts()}
+          refreshing={this.props.accounts.length === 0 && this.props.isLoading}
+          style={{ paddingHorizontal: 15 }}
+        />
+      </View>
+    );
   }
-
-  return (
-    <View>
-      <SectionList
-        sections={sections}
-        renderSectionHeader={({ section }) => <Text style={styles.productCategory}> {section.title} </Text>}
-        renderItem={this.renderItem}
-        keyExtractor={item => item.accountId}
-        onRefresh={() => props.loadAccounts()}
-        refreshing={props.accounts.length === 0 && props.isLoading}
-        style={{paddingHorizontal: 15 }}
-      />
-    </View>
-  );
 }
 
 const styles = StyleSheet.create({

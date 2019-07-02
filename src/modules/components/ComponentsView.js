@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, Alert, ScrollView, AsyncStorage } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Entypo';
 import { colors, fonts } from '../../styles';
@@ -7,6 +7,17 @@ import { colors, fonts } from '../../styles';
 import { Button, RadioGroup, Dropdown } from '../../components';
 
 export default function ComponentsScreen(props) {
+
+  const deleteUserId = async () => {
+    try {
+      await AsyncStorage.removeItem('userToken');
+      props.navigation.navigate('Auth');
+    } catch (error) {
+      // Error retrieving data
+      console.log(error.message);
+    }
+  }
+
   return (
     <ScrollView
       style={styles.container}
@@ -50,8 +61,8 @@ export default function ComponentsScreen(props) {
           <Button
             style={styles.demoButton}
             primary
-            caption="Button"
-            onPress={() => {}}
+            caption="Logout"
+            onPress={deleteUserId}
           />
           <Button
             style={styles.demoButton}
