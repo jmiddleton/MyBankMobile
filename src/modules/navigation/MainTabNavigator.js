@@ -16,7 +16,7 @@ const iconGrids = require('../../../assets/images/tabbar/transfer.png');
 const iconPages = require('../../../assets/images/tabbar/payees.png');
 const iconComponents = require('../../../assets/images/tabbar/components.png');
 
-const hederBackground = require('../../../assets/images/topBarBg.png');
+const headerBackground = require('../../../assets/images/topBarBg.png');
 
 const styles = StyleSheet.create({
   tabBarItemContainer: {
@@ -55,79 +55,43 @@ const styles = StyleSheet.create({
   },
 });
 
-export default createBottomTabNavigator(
+const TabNavigator= createBottomTabNavigator(
   {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        header: null,
-      },
+    Dashboard: {
+      screen: HomeScreen
     },
     Accounts: {
-      screen: AccountsScreen,
-      navigationOptions: {
-        header: (
-          <View style={styles.headerContainer}>
-            <Image style={styles.headerImage} source={hederBackground} />
-            <Text style={styles.headerCaption}>Accounts</Text>
-          </View>
-        ),
-      },
+      screen: AccountsScreen
     },
-    Grids: {
-      screen: GridsScreen,
-      navigationOptions: {
-        header: (
-          <View style={styles.headerContainer}>
-            <Image style={styles.headerImage} source={hederBackground} />
-            <Text style={styles.headerCaption}>Transfers</Text>
-          </View>
-        ),
-      },
+    Transfers: {
+      screen: GridsScreen
     },
-    Pages: {
-      screen: PagesScreen,
-      navigationOptions: {
-        header: (
-          <View style={styles.headerContainer}>
-            <Image style={styles.headerImage} source={hederBackground} />
-            <Text style={styles.headerCaption}>Payees</Text>
-          </View>
-        ),
-      },
+    Payees: {
+      screen: PagesScreen
     },
-    Components: {
-      screen: ComponentsScreen,
-      navigationOptions: {
-        header: (
-          <View style={styles.headerContainer}>
-            <Image style={styles.headerImage} source={hederBackground} />
-            <Text style={styles.headerCaption}>Others</Text>
-          </View>
-        ),
-      },
-    },
+    Others: {
+      screen: ComponentsScreen
+    }
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
-      // eslint-disable-next-line react/prop-types
       tabBarIcon: ({ focused }) => {
         const { routeName } = navigation.state;
         let iconSource;
         switch (routeName) {
-          case 'Home':
+          case 'Dashboard':
             iconSource = iconHome;
             break;
           case 'Accounts':
             iconSource = iconAccounts;
             break;
-          case 'Grids':
+          case 'Transfers':
             iconSource = iconGrids;
             break;
-          case 'Pages':
+          case 'Payees':
             iconSource = iconPages;
             break;
-          case 'Components':
+          case 'Others':
             iconSource = iconComponents;
             break;
           default:
@@ -160,3 +124,19 @@ export default createBottomTabNavigator(
     },
   },
 );
+
+TabNavigator.navigationOptions = ({ navigation }) => {
+  const { routeName } = navigation.state.routes[navigation.state.index];
+
+  const headerTitle = routeName;
+  return {
+    header: (
+      <View style={styles.headerContainer}>
+        <Image style={styles.headerImage} source={headerBackground} />
+        <Text style={styles.headerCaption}>{headerTitle}</Text>
+      </View>
+    )
+  };
+};
+
+export default TabNavigator;

@@ -8,7 +8,7 @@ import LoginScreen from '../login/LoginViewContainer';
 import AuthLoadingScreen from '../login/AuthLoadingScreen';
 
 // To use this screens please see the full version at https://reactnativestarter.com
-// import ProfileScreen from '../containers/ProfileScreen';
+//import HomeScreen from '../home/HomeViewContainer';
 // import ArticleScreen from '../containers/ArticleScreen';
 // import ChatScreen from '../containers/chat/ChatScreen';
 // import MessagesScreen from '../containers/chat/MessagesScreen';
@@ -20,14 +20,36 @@ import { colors, fonts } from '../../styles';
 
 const headerBackground = require('../../../assets/images/topBarBg.png');
 
-const authStack = createStackNavigator({ Login: LoginScreen });
+const authStack = createStackNavigator({ Login: LoginScreen }, {
+  defaultNavigationOptions: () => ({
+    titleStyle: {
+      fontFamily: fonts.primaryLight,
+    },
+    headerStyle: {
+      backgroundColor: colors.primary,
+      borderBottomWidth: 0,
+    },
+    headerBackground: (
+      <Image
+        style={{ flex: 1 }}
+        source={headerBackground}
+        resizeMode="cover"
+      />
+    ),
+    headerTitleStyle: {
+      color: colors.white,
+      fontFamily: fonts.primaryRegular,
+    },
+    headerTintColor: '#222222',
+  }),
+});
 
 const appNavigator = createStackNavigator(
   {
     Main: {
       screen: MainTabNavigator,
       navigationOptions: () => ({
-        title: 'MyBank',
+        //title: 'MyBank',
         headerLeft: null,
         headerBackground: (
           <Image
