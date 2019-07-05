@@ -5,6 +5,18 @@ import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import reducer from './reducer';
 
+import axios from 'axios';
+
+axios.defaults.baseURL = "http://localhost:3000/mybank/v1";
+axios.defaults.headers.common['x-api-key'] = "d41d8cd98f00b204e9800998ecf8427e";
+
+// Add a response interceptor
+axios.interceptors.response.use((response) => {
+  return response;
+}, function (error) {
+  return Promise.reject(error);
+});
+
 const enhancers = [
   applyMiddleware(
     thunkMiddleware,

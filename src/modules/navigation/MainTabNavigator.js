@@ -4,7 +4,7 @@ import { Image, View, StyleSheet, Text } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import { colors, fonts } from '../../styles';
 
-import HomeScreen from '../home/HomeViewContainer';
+import DashboardScreen from '../home/DashboardViewContainer';
 import AccountsScreen from '../accounts/AccountsViewContainer';
 import GridsScreen from '../grids/GridsViewContainer';
 import PagesScreen from '../pages/PagesViewContainer';
@@ -13,7 +13,7 @@ import ComponentsScreen from '../components/ComponentsViewContainer';
 const iconHome = require('../../../assets/images/tabbar/home2.png');
 const iconAccounts = require('../../../assets/images/tabbar/wallet.png');
 const iconGrids = require('../../../assets/images/tabbar/transfer.png');
-const iconPages = require('../../../assets/images/tabbar/payees.png');
+const iconTransactions = require('../../../assets/images/tabbar/transaction-list.png');
 const iconComponents = require('../../../assets/images/tabbar/components.png');
 
 const headerBackground = require('../../../assets/images/topBarBg.png');
@@ -30,9 +30,10 @@ const styles = StyleSheet.create({
   tabBarIcon: {
     width: 23,
     height: 23,
+    tintColor: colors.lightGray,
   },
   tabBarIconFocused: {
-    tintColor: colors.primary,
+    tintColor: colors.black,
   },
   headerContainer: {
     height: 70,
@@ -55,18 +56,18 @@ const styles = StyleSheet.create({
   },
 });
 
-const TabNavigator= createBottomTabNavigator(
+const TabNavigator = createBottomTabNavigator(
   {
     Dashboard: {
-      screen: HomeScreen
+      screen: DashboardScreen
     },
     Accounts: {
       screen: AccountsScreen
     },
-    Transfers: {
+    Payments: {
       screen: GridsScreen
     },
-    Payees: {
+    Transactions: {
       screen: PagesScreen
     },
     Others: {
@@ -85,11 +86,11 @@ const TabNavigator= createBottomTabNavigator(
           case 'Accounts':
             iconSource = iconAccounts;
             break;
-          case 'Transfers':
+          case 'Payments':
             iconSource = iconGrids;
             break;
-          case 'Payees':
-            iconSource = iconPages;
+          case 'Transactions':
+            iconSource = iconTransactions;
             break;
           case 'Others':
             iconSource = iconComponents;
@@ -116,10 +117,11 @@ const TabNavigator= createBottomTabNavigator(
       style: {
         backgroundColor: colors.white,
         borderTopWidth: 0.5,
-        borderTopColor: '#d6d6d6',
+        borderTopColor: '#d6d6d6'
       },
+      activeTintColor: '#000',
       labelStyle: {
-        color: colors.grey,
+        fontSize: 12,
       },
     },
   },

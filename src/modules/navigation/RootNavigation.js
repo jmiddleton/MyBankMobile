@@ -49,7 +49,6 @@ const appNavigator = createStackNavigator(
     Main: {
       screen: MainTabNavigator,
       navigationOptions: () => ({
-        //title: 'MyBank',
         headerLeft: null,
         headerBackground: (
           <Image

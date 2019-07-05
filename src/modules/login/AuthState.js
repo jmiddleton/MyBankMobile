@@ -39,8 +39,7 @@ export default async function AuthStateReducer(state = initialState, action = {}
       const userToken= action.payload.userToken;
       AsyncStorage.setItem('userToken', userToken);
       //AsyncStorage.setItem('userProfile', action.payload.userProfile);
-
-      axios.defaults.headers.common["Authorization"] = userToken.tokenType + " " + userToken.idToken;  
+      axios.defaults.headers.common["Authorization"] = userToken.tokenType + " " + userToken.idToken;
 
       return Object.assign({}, state, {
         currentUser: action.payload.currentUser,

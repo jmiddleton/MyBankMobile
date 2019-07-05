@@ -5,19 +5,9 @@ const ACCOUNTS_LOADED = 'AccountsState/ACCOUNTS_LOADED';
 const START_ACCOUNTS_LOADING = 'AccountsState/START_ACCOUNTS_LOADING';
 const CLEAR_ACCOUNTS = 'AccountsState/CLEAR_ACCOUNTS';
 
-axios.defaults.baseURL = "http://localhost:3000/mybank/v1";
-axios.defaults.headers.common['x-api-key'] = "d41d8cd98f00b204e9800998ecf8427e";
-
 // AsyncStorage.getItem('userToken').then(userToken => {
 //   axios.defaults.headers.common["Authorization"] = userToken.tokenType + " " + userToken.idToken;
 // });
-
-// Add a response interceptor
-axios.interceptors.response.use((response) => {
-  return response;
-}, function (error) {
-  return Promise.reject(error);
-});
 
 async function _loadAccounts() {
   try {
