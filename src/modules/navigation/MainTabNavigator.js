@@ -110,7 +110,7 @@ const TabNavigator = createBottomTabNavigator(
       },
     }),
     tabBarPosition: 'bottom',
-    animationEnabled: false,
+    animationEnabled: true,
     swipeEnabled: false,
     tabBarOptions: {
       showLabel: true,

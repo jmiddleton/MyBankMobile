@@ -1,13 +1,17 @@
 import axios from 'axios';
 import _ from 'lodash';
+import moment from 'moment';
 
+const monthFormat = "YYYY-MM";
 const BALANCES_LOADED = 'DashboarState/BALANCES_LOADED';
 const CASHFLOW_LOADED = 'DashboarState/CASHFLOW_LOADED';
+const SPENDINGS_LOADED = 'DashboarState/SPENDINGS_LOADED';
 // const START_LOADING = 'DashboarState/START_LOADING';
+
+axios.defaults.headers.common["Authorization"] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1rSTBOakJET0VVeU5qSTRSREJFTURWR1JUVTJSREV4TmpsRlEwVXdSVU01UXpFMFFrWTNRZyJ9.eyJuaWNrbmFtZSI6Im15YmFua3Rlc3QiLCJuYW1lIjoibXliYW5rdGVzdEBteWJhbmsuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyL2Y2OGY0NDA5M2FiZWFjMWEyMjBmNzRlZjdiODdjNzNiP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGbXkucG5nIiwidXBkYXRlZF9hdCI6IjIwMTktMDctMDdUMDc6MzQ6MTMuODU5WiIsImVtYWlsIjoibXliYW5rdGVzdEBteWJhbmsuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJpc3MiOiJodHRwczovL2Rldi1teWJhbmsuYXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVjYTMwZGQ1MDQwOTljMGU0YWVjNDQ3MSIsImF1ZCI6IlIyemJTUUxGdmR5Y0FoUG5Geko2RkNCSmpPRkNRQW84IiwiaWF0IjoxNTYyNTMxMjQ2LCJleHAiOjE1NjI1NjcyNDYsIm5vbmNlIjoiTUhCQ2pGdFVUNTU3U21EWVQwM1YtQlp2YWZIaDBLbkkifQ.RRIEWfCtZfirIhTLlM9kWI-_LCC5LAxrPAO3AcK-sl9sQwriVxAQJ4_D6rNhbtnNoSmXJ_CDeLHHZjX0ZzpvzbmSAfv3NZAuDRevFPWD_jTz2CJS8YcQhlnRXvtb5Haa88aJIkm-yx7K5xj3tgE_2gZTUsdZ07-WTwDqs7qmMcEsOvJ48vLL83PWJNhCeiaLmExJVLwH1SftFC3gOxtHyE_YXkEMsWcIGGFLBNTOUKu6FmAmet_s3i5Ky0Dl4opsDbdBN7Td3U-dQcIDiybEULdtiUNrrsAm9a26p0lo65TMk5-II_azxgw0Az2AKgFTOQ8t1T2cgDrz_OAsj0UCxw";
 
 export function loadBalances() {
   const totals = {};
-  axios.defaults.headers.common["Authorization"] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1rSTBOakJET0VVeU5qSTRSREJFTURWR1JUVTJSREV4TmpsRlEwVXdSVU01UXpFMFFrWTNRZyJ9.eyJuaWNrbmFtZSI6Im15YmFua3Rlc3QiLCJuYW1lIjoibXliYW5rdGVzdEBteWJhbmsuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyL2Y2OGY0NDA5M2FiZWFjMWEyMjBmNzRlZjdiODdjNzNiP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGbXkucG5nIiwidXBkYXRlZF9hdCI6IjIwMTktMDctMDVUMDA6NTM6MDAuODE5WiIsImVtYWlsIjoibXliYW5rdGVzdEBteWJhbmsuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJpc3MiOiJodHRwczovL2Rldi1teWJhbmsuYXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVjYTMwZGQ1MDQwOTljMGU0YWVjNDQ3MSIsImF1ZCI6IlIyemJTUUxGdmR5Y0FoUG5Geko2RkNCSmpPRkNRQW84IiwiaWF0IjoxNTYyMjg3OTgwLCJleHAiOjE1NjIzMjM5ODB9.AN1mdAEGO7lxdZwvC-EofA9T0Umv4Z6uODAkSDfL6ROf_fYfR-g1wXoLrAQZb9zK9fp4MUQKeQ7bGUAp-nPrzC0x15UMS9BlsHv28_IBucA-2WtHKPfAy8tyfgUCFBoOLOJEUa-vCztzRG5sPfqQ9nx6kxtnyYdJAONurk5-CBzAl7ZGD4-cvHBjX7KhBrWsVLD8elw9WVatIYGMSA-hWDkmJcvcPbU4Ae57MxV865VnWF04nRSBre7OryldL9cEfY9oKsXF4ZTPRdl9C-e0TqXq81L94bibCUNw3huqCg8m0Kt0YZ5tJCj_nnTSnvpNfrQ-rKY1tVBmV42mv4AFMA";
 
   return async dispatch => {
     try {
@@ -27,7 +31,7 @@ export function loadBalances() {
           total.balance = Math.round(total.balance + parseFloat(balance.currentBalance), 2);
           total.available = Math.round(total.available + parseFloat(balance.availableBalance), 2);
 
-          totals[balance.productCategory]= total;
+          totals[balance.productCategory] = total;
         });
       }
 
@@ -39,18 +43,88 @@ export function loadBalances() {
 }
 
 export function loadCashflow() {
-  axios.defaults.headers.common["Authorization"] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1rSTBOakJET0VVeU5qSTRSREJFTURWR1JUVTJSREV4TmpsRlEwVXdSVU01UXpFMFFrWTNRZyJ9.eyJuaWNrbmFtZSI6Im15YmFua3Rlc3QiLCJuYW1lIjoibXliYW5rdGVzdEBteWJhbmsuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyL2Y2OGY0NDA5M2FiZWFjMWEyMjBmNzRlZjdiODdjNzNiP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGbXkucG5nIiwidXBkYXRlZF9hdCI6IjIwMTktMDctMDVUMDA6NTM6MDAuODE5WiIsImVtYWlsIjoibXliYW5rdGVzdEBteWJhbmsuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJpc3MiOiJodHRwczovL2Rldi1teWJhbmsuYXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVjYTMwZGQ1MDQwOTljMGU0YWVjNDQ3MSIsImF1ZCI6IlIyemJTUUxGdmR5Y0FoUG5Geko2RkNCSmpPRkNRQW84IiwiaWF0IjoxNTYyMjg3OTgwLCJleHAiOjE1NjIzMjM5ODB9.AN1mdAEGO7lxdZwvC-EofA9T0Umv4Z6uODAkSDfL6ROf_fYfR-g1wXoLrAQZb9zK9fp4MUQKeQ7bGUAp-nPrzC0x15UMS9BlsHv28_IBucA-2WtHKPfAy8tyfgUCFBoOLOJEUa-vCztzRG5sPfqQ9nx6kxtnyYdJAONurk5-CBzAl7ZGD4-cvHBjX7KhBrWsVLD8elw9WVatIYGMSA-hWDkmJcvcPbU4Ae57MxV865VnWF04nRSBre7OryldL9cEfY9oKsXF4ZTPRdl9C-e0TqXq81L94bibCUNw3huqCg8m0Kt0YZ5tJCj_nnTSnvpNfrQ-rKY1tVBmV42mv4AFMA";
+  const currentMonth = moment().format(monthFormat);
 
   return async dispatch => {
     try {
-      const response = await axios.get('/analytics/cashflow');
-      dispatch(cashflowLoaded(response.data));
+      const response = await axios.get('/analytics/chartData');
+
+      console.log(response);
+
+      if (response && response.data) {
+        const data = response.data.data;
+
+        if (data) {
+          const chartData = [];
+          const saving = _.find(data.savings, function (value) {
+            return (value.month === currentMonth);
+          });
+
+          const income = _.find(data.incomes, function (value) {
+            return (value.month === currentMonth);
+          });
+
+          const spendings = _.find(data.spendings, function (value) {
+            return (value.month === currentMonth);
+          });
+
+          chartData.push({
+            x: "Incomes", y: income ? income.totalIncome : 0
+          });
+
+          chartData.push({
+            x: "Spendings", y: spendings ? spendings.totalSpent : 0
+          });
+
+          chartData.push({
+            x: "Savings", y: saving ? saving.totalSavings : 0
+          });
+
+          dispatch(chartDataLoaded(chartData));
+        }
+      }
+
     } catch (error) {
       console.log(error);
     }
   };
 }
 
+export function loadSpendings() {
+  const currentMonth = moment().format(monthFormat);
+
+  return async dispatch => {
+    try {
+      const response = await axios.get(
+        "/analytics/spendings/" + currentMonth,
+        {
+          params: {
+            monthsToPrefetch: 0,
+            'page-size': 50
+          }
+        }
+      );
+
+      if (response && response.data) {
+        const chartData = [];
+        const spendings = response.data.data.spendings;
+
+        spendings.forEach(s => {
+          chartData.push({
+            name: s.category, total: s.totalSpent
+          });
+        });
+
+        dispatch(spendingsLoaded(chartData));
+      }
+
+
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 // function startLoading() {
 //   return { type: START_ACCOUNTS_LOADING };
 // }
@@ -67,11 +141,19 @@ function balancesLoaded(balances) {
   };
 }
 
-function cashflowLoaded(cashflow) {
-  console.log("cashflow>>>>>>"); console.log(cashflow);
+function chartDataLoaded(chartData) {
+  console.log("chartData>>>>>>"); console.log(chartData);
   return {
     type: CASHFLOW_LOADED,
-    balances,
+    chartData,
+  };
+}
+
+function spendingsLoaded(spendings) {
+  console.log("spendings>>>>>>"); console.log(spendings);
+  return {
+    type: SPENDINGS_LOADED,
+    spendings,
   };
 }
 
@@ -131,19 +213,15 @@ export default function DashboarStateReducer(state = defaultState, action) {
         balances: action.balances
       });
     case CASHFLOW_LOADED:
-        return Object.assign({}, state, {
-          isLoading: true,
-          cashflow: action.cashflow
-        });
-    // case ACCOUNTS_LOADED:
-    //   return Object.assign({}, state, {
-    //     isLoading: true,
-    //     accounts: action.accounts,
-    //   });
-    // case CLEAR_ACCOUNTS:
-    //   return Object.assign({}, state, {
-    //     accounts: [],
-    //   });
+      return Object.assign({}, state, {
+        isLoading: true,
+        chartData: action.chartData
+      });
+    case SPENDINGS_LOADED:
+      return Object.assign({}, state, {
+        isLoading: true,
+        spendings: action.spendings
+      });
     default:
       return state;
   }

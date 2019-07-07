@@ -3,6 +3,7 @@ import { Image, TouchableOpacity } from 'react-native';
 import { createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
+import SplashScreen from './SplashScreen';
 import GalleryScreen from '../gallery/GalleryViewContainer';
 import LoginScreen from '../login/LoginViewContainer';
 import AuthLoadingScreen from '../login/AuthLoadingScreen';
@@ -143,7 +144,7 @@ const appNavigator = createStackNavigator(
   },
 );
 
-export default createAppContainer(createSwitchNavigator(
+const AppNavigator = createAppContainer(createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
     App: appNavigator,
@@ -153,3 +154,10 @@ export default createAppContainer(createSwitchNavigator(
     initialRouteName: 'AuthLoading',
   }
 ));
+//export default createAppContainer(AppNavigator);
+
+const InitialNavigator = createSwitchNavigator({
+  Splash: SplashScreen,
+  App: AppNavigator
+});
+export default createAppContainer(InitialNavigator);

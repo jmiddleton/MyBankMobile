@@ -1,13 +1,13 @@
 import React from 'react';
-import { VictoryPie } from 'victory-native';
-
 import {
-    StyleSheet,
-    View,
     Text,
-    Image,
+    View,
+    Dimensions,
+    StyleSheet
 } from 'react-native';
 import { fonts } from '../../styles';
+import { PieChart } from 'react-native-svg-charts';
+import { bold } from 'ansi-colors';
 
 export const colors = [
     "#ffc247",
@@ -22,24 +22,64 @@ export const colors = [
     "#20B6B6"
 ];
 
-export default class CashflowScreen extends React.Component {
+export default class SpendingsScreen extends React.Component {
+    constructor(props) {
+        super(props);
+
+        let firstCategory = { category: '', total: 0 };
+        if (this.props.spendings && this.props.spendings.length > 0) {
+            firstCategory = this.props.spendings[0];
+        }
+
+        this.state = {
+            selectedSlice: {
+                label: firstCategory.name,
+                value: firstCategory.total
+            },
+            labelWidth: 0
+        };
+    }
+
     render() {
+        const { labelWidth, selectedSlice } = this.state;
+        const { label, value } = selectedSlice;
+        const deviceWidth = Dimensions.get('window').width;
+        const chartData = [];
+
+        for (let index = 0; index < this.props.spendings.length; index++) {
+            const s = this.props.spendings[index];
+            chartData.push({
+                key: s.name, value: s.total,
+                svg: { fill: colors[index] },
+                arc: { outerRadius: s.total / 100 + 75 + '%', padAngle: label === s.name ? 0.1 : 0 },
+                onPress: () => this.setState({ selectedSlice: { label: s.name, value: s.total } })
+            });
+        }
+
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>SPENDINGS</Text>
-                <VictoryPie viewBox="0 0 200 200"
-                    data={[
-                        { x: "Cats", y: 35 },
-                        { x: "Dogs", y: 40 },
-                        { x: "Birds", y: 55 }
-                    ]}
-                    padAngle={3}
-                    width={200} height={200}
-                    innerRadius={70}
-                    style={{ labels: { fill: "white", fontSize: 12 } }}
-                    colorScale={colors}
-                    animate={{ duration: 2000 }}
-                />
+                <View style={styles.metaContainer}>
+                    <PieChart
+                        style={{ height: 300, top: -50, }}
+                        outerRadius={'80%'}
+                        innerRadius={'45%'}
+                        data={chartData}
+                    />
+                    <Text
+                        onLayout={({ nativeEvent: { layout: { width } } }) => {
+                            this.setState({ labelWidth: width });
+                        }}
+                        style={{
+                            position: 'absolute',
+                            fontSize: 12,
+                            fontFamily: fonts.primaryBold,
+                            top: 80,
+                            left: deviceWidth / 2 - labelWidth / 2 - 25,
+                            textAlign: 'center'
+                        }}>
+                        {`${label} \n $${value}`}
+                    </Text></View>
             </View>
         );
     }
@@ -60,27 +100,9 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     metaContainer: {
-        flexDirection: 'row',
         justifyContent: 'space-between',
         paddingLeft: 10,
         paddingRight: 10,
         paddingBottom: 2,
-    },
-    subTitle: {
-        fontFamily: fonts.primaryRegular,
-        fontSize: 16,
-        marginVertical: 5,
-    },
-    balance: {
-        fontFamily: fonts.primarySemiBold,
-        fontSize: 18,
-    },
-    mainBalance: {
-        fontFamily: fonts.primarySemiBold,
-        fontSize: 30,
-    },
-    itemThreeImage: {
-        height: 50,
-        width: 50,
     },
 });
