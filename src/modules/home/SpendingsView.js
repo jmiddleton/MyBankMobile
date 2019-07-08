@@ -49,7 +49,7 @@ export default class SpendingsScreen extends React.Component {
         for (let index = 0; index < this.props.spendings.length; index++) {
             const s = this.props.spendings[index];
             chartData.push({
-                key: s.category, 
+                key: s.category,
                 value: s.totalSpent,
                 svg: { fill: colors[index] },
                 arc: { outerRadius: s.totalSpent / 100 + 70 + '%', padAngle: label === s.category ? 0.1 : 0 },
@@ -62,8 +62,9 @@ export default class SpendingsScreen extends React.Component {
                 <Text style={styles.title}>SPENDINGS</Text>
                 <View style={styles.metaContainer}>
                     <PieChart
-                        style={{ height: 270, top: -50, }}
-                        outerRadius={'75%'}
+                        animate={true}
+                        style={{ height: 250, top: -30, }}
+                        outerRadius={'70%'}
                         innerRadius={'45%'}
                         data={chartData}
                     />

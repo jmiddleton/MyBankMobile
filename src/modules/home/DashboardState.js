@@ -68,20 +68,20 @@ export function loadCashflow() {
         });
 
         cashflow.push({
-          x: "Incomes", y: income ? income.totalIncome : 0
+          name: "Incomes", total: income ? income.totalIncome : 0
         });
 
         cashflow.push({
-          x: "Spendings", y: spendings ? spendings.totalSpent : 0
+          name: "Spendings", total: spendings ? spendings.totalSpent : 0
         });
 
         cashflow.push({
-          x: "Savings", y: saving ? saving.totalSavings : 0
+          name: "Savings", total: saving ? saving.totalSavings : 0
         });
 
         dispatch(cashflowLoaded(cashflow));
       } else {
-        dispatch(savingsLoaded([]));
+        dispatch(cashflowLoaded([]));
       }
 
     } catch (error) {
@@ -108,7 +108,7 @@ export function loadSpendings() {
       if (response && response.data && response.data.data) {
         dispatch(spendingsLoaded(response.data.data.spendings));
       } else {
-        dispatch(savingsLoaded([]));
+        dispatch(spendingsLoaded([]));
       }
     } catch (error) {
       console.log(error);

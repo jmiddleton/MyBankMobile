@@ -30,7 +30,7 @@ export default class DashboardScreen extends React.Component {
         this.props.loadSpendings().then(() => {
             this.setState({ refreshing: false });
         });
-        this.props.loadSavingss().then(() => {
+        this.props.loadSavings().then(() => {
             this.setState({ refreshing: false });
         });
     }

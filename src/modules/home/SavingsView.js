@@ -1,6 +1,5 @@
 import React from 'react';
-import { LinearGradient, Stop, Defs } from 'react-native-svg';
-import { BarChart, Grid, XAxis } from 'react-native-svg-charts';
+import { BarChart, Grid, XAxis, YAxis } from 'react-native-svg-charts';
 import * as scale from 'd3-scale';
 
 import {
@@ -16,68 +15,56 @@ export default class SavingsScreen extends React.Component {
     }
 
     render() {
+        const axesSvg = { fontSize: 10, fill: 'grey' };
+        const verticalContentInset = { top: 0, bottom: 10 }
+        const xAxisHeight = 15
         const chartData = [];
-        const chartLabels = [];
 
         if (this.props.savings) {
-            for (let index = 0; index < this.props.savings.length; index++) {
-                const s = this.props.savings[index];
-                chartData.push(s.totalSavings);
-                chartLabels.push(s.monthName);
-            }
-        }
 
-        const Gradient = () => (
-            <Defs key={'gradient'}>
-                <LinearGradient id={'gradient'} x1={'0%'} y={'0%'} x2={'0%'} y2={'100%'}>
-                    <Stop offset={'0%'} stopColor={'rgb( 162, 217, 206 )'} />
-                    <Stop offset={'100%'} stopColor={'rgb( 40, 180, 99 )'} />
-                </LinearGradient>
-            </Defs>
-        )
-
-        const Labels = ({ x, y, bandwidth, data }) => (
-            data.map((value, index) => (
-                <Text
-                    key={ index }
-                    x={ x(index) -10}
-                    y={ y(value) - 10}
-                    fontSize={ 14 }
-                    fill={ 'black' }
-                    alignmentBaseline={ 'middle' }
-                    textAnchor={ 'middle' }
-                >
-                    {value}
-                </Text>
-            ))
-        )
-
-        return (
-            <View style={styles.container}>
-                <Text style={styles.title}>SAVINGS</Text>
-                <View style={styles.metaContainer}>
-                    <BarChart
-                        style={{ height: 170 }}
-                        data={chartData}
-                        spacing={0.2}
-                        contentInset={{ top: 20, bottom: 10 }}
-                        svg={{
-                            strokeWidth: 1,
-                            fill: 'url(#gradient)',
-                        }}>
-                        <Grid />
-                        <Gradient />
-                    </BarChart>
-                    <XAxis
-                        style={{ marginTop: 0 }}
-                        data={this.props.savings}
-                        formatLabel={(value, index) => this.props.savings[index].monthName}
-                        labelStyle={{ color: 'black' }}
-                        scale={scale.scaleBand}
-                    />
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.title}>SAVINGS</Text>
+                    <View style={{ height: 215, paddingTop:10, paddingLeft: 0, paddingBottom: 20, flexDirection: 'row' }}>
+                        <YAxis
+                            data={this.props.savings}
+                            yAccessor={({ item }) => item.totalSavings}
+                            style={{ marginBottom: xAxisHeight }}
+                            contentInset={verticalContentInset}
+                            svg={axesSvg}
+                        />
+                        <View style={{ flex: 1, marginLeft: 10 }}>
+                            <BarChart animate={true}
+                                style={{ flex: 1 }}
+                                data={this.props.savings}
+                                yAccessor={({ item }) => item.totalSavings}
+                                spacing={0.2}
+                                contentInset={{ top: 0, bottom: 10 }}
+                                svg={{
+                                    strokeWidth: 1,
+                                    fill: '#52be80',
+                                }}>
+                                <Grid />
+                            </BarChart>
+                            <XAxis
+                                style={{ marginTop: 0 }}
+                                data={this.props.savings}
+                                formatLabel={(value, index) => this.props.savings[index].monthName}
+                                labelStyle={{ color: 'black' }}
+                                scale={scale.scaleBand}
+                            />
+                        </View>
+                    </View>
                 </View>
-            </View>
-        );
+            );
+        } else {
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.title}>SAVINGS</Text>
+                    <Text>No Data Found</Text>
+                </View>
+            );
+        }
     }
 };
 
