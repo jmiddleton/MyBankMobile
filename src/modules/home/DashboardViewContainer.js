@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { compose, lifecycle } from 'recompose';
 
-import { loadBalances, loadCashflow, loadSpendings } from './DashboardState';
+import { loadBalances, loadCashflow, loadSpendings, loadSavings } from './DashboardState';
 import DashboardScreen from './DashboardView';
 
 export default compose(
@@ -11,11 +11,13 @@ export default compose(
             balances: state.dashboard.balances,
             cashflow: state.dashboard.cashflow,
             spendings: state.dashboard.spendings,
+            savings: state.dashboard.savings,
         }),
         dispatch => ({
             loadBalances: () => dispatch(loadBalances()),
             loadCashflow: () => dispatch(loadCashflow()),
             loadSpendings: () => dispatch(loadSpendings()),
+            loadSavings: () => dispatch(loadSavings()),
         }),
     ),
     lifecycle({
@@ -23,6 +25,7 @@ export default compose(
             this.props.loadBalances();
             this.props.loadCashflow();
             this.props.loadSpendings();
+            this.props.loadSavings();
         },
     }),
 )(DashboardScreen);

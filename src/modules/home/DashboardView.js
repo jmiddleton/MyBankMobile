@@ -2,6 +2,7 @@ import React from 'react';
 import BalancesScreen from './BalancesView';
 import CashflowScreen from './CashflowView';
 import SpendingsScreen from './SpendingsView';
+import SavingsScreen from './SavingsView';
 
 import {
     StyleSheet,
@@ -29,6 +30,9 @@ export default class DashboardScreen extends React.Component {
         this.props.loadSpendings().then(() => {
             this.setState({ refreshing: false });
         });
+        this.props.loadSavingss().then(() => {
+            this.setState({ refreshing: false });
+        });
     }
 
     render() {
@@ -48,6 +52,9 @@ export default class DashboardScreen extends React.Component {
                 </View>
                 <View style={styles.container}>
                     <SpendingsScreen spendings={this.props.spendings} />
+                </View>
+                <View style={styles.container}>
+                    <SavingsScreen savings={this.props.savings} />
                 </View>
             </ScrollView>
         );

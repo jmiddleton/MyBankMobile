@@ -33,8 +33,8 @@ export default class SpendingsScreen extends React.Component {
 
         this.state = {
             selectedSlice: {
-                label: firstCategory.name,
-                value: firstCategory.total
+                label: firstCategory.category,
+                value: firstCategory.totalSpent
             },
             labelWidth: 0
         };
@@ -49,10 +49,11 @@ export default class SpendingsScreen extends React.Component {
         for (let index = 0; index < this.props.spendings.length; index++) {
             const s = this.props.spendings[index];
             chartData.push({
-                key: s.name, value: s.total,
+                key: s.category, 
+                value: s.totalSpent,
                 svg: { fill: colors[index] },
-                arc: { outerRadius: s.total / 100 + 75 + '%', padAngle: label === s.name ? 0.1 : 0 },
-                onPress: () => this.setState({ selectedSlice: { label: s.name, value: s.total } })
+                arc: { outerRadius: s.totalSpent / 100 + 70 + '%', padAngle: label === s.category ? 0.1 : 0 },
+                onPress: () => this.setState({ selectedSlice: { label: s.category, value: s.totalSpent } })
             });
         }
 
@@ -61,8 +62,8 @@ export default class SpendingsScreen extends React.Component {
                 <Text style={styles.title}>SPENDINGS</Text>
                 <View style={styles.metaContainer}>
                     <PieChart
-                        style={{ height: 300, top: -50, }}
-                        outerRadius={'80%'}
+                        style={{ height: 270, top: -50, }}
+                        outerRadius={'75%'}
                         innerRadius={'45%'}
                         data={chartData}
                     />

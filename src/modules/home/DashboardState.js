@@ -6,9 +6,9 @@ const monthFormat = "YYYY-MM";
 const BALANCES_LOADED = 'DashboarState/BALANCES_LOADED';
 const CASHFLOW_LOADED = 'DashboarState/CASHFLOW_LOADED';
 const SPENDINGS_LOADED = 'DashboarState/SPENDINGS_LOADED';
-// const START_LOADING = 'DashboarState/START_LOADING';
+const SAVINGS_LOADED = 'DashboarState/SAVINGS_LOADED';
 
-axios.defaults.headers.common["Authorization"] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1rSTBOakJET0VVeU5qSTRSREJFTURWR1JUVTJSREV4TmpsRlEwVXdSVU01UXpFMFFrWTNRZyJ9.eyJuaWNrbmFtZSI6Im15YmFua3Rlc3QiLCJuYW1lIjoibXliYW5rdGVzdEBteWJhbmsuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyL2Y2OGY0NDA5M2FiZWFjMWEyMjBmNzRlZjdiODdjNzNiP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGbXkucG5nIiwidXBkYXRlZF9hdCI6IjIwMTktMDctMDdUMDc6MzQ6MTMuODU5WiIsImVtYWlsIjoibXliYW5rdGVzdEBteWJhbmsuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJpc3MiOiJodHRwczovL2Rldi1teWJhbmsuYXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVjYTMwZGQ1MDQwOTljMGU0YWVjNDQ3MSIsImF1ZCI6IlIyemJTUUxGdmR5Y0FoUG5Geko2RkNCSmpPRkNRQW84IiwiaWF0IjoxNTYyNTMxMjQ2LCJleHAiOjE1NjI1NjcyNDYsIm5vbmNlIjoiTUhCQ2pGdFVUNTU3U21EWVQwM1YtQlp2YWZIaDBLbkkifQ.RRIEWfCtZfirIhTLlM9kWI-_LCC5LAxrPAO3AcK-sl9sQwriVxAQJ4_D6rNhbtnNoSmXJ_CDeLHHZjX0ZzpvzbmSAfv3NZAuDRevFPWD_jTz2CJS8YcQhlnRXvtb5Haa88aJIkm-yx7K5xj3tgE_2gZTUsdZ07-WTwDqs7qmMcEsOvJ48vLL83PWJNhCeiaLmExJVLwH1SftFC3gOxtHyE_YXkEMsWcIGGFLBNTOUKu6FmAmet_s3i5Ky0Dl4opsDbdBN7Td3U-dQcIDiybEULdtiUNrrsAm9a26p0lo65TMk5-II_azxgw0Az2AKgFTOQ8t1T2cgDrz_OAsj0UCxw";
+axios.defaults.headers.common["Authorization"] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1rSTBOakJET0VVeU5qSTRSREJFTURWR1JUVTJSREV4TmpsRlEwVXdSVU01UXpFMFFrWTNRZyJ9.eyJuaWNrbmFtZSI6Im15YmFua3Rlc3QiLCJuYW1lIjoibXliYW5rdGVzdEBteWJhbmsuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyL2Y2OGY0NDA5M2FiZWFjMWEyMjBmNzRlZjdiODdjNzNiP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGbXkucG5nIiwidXBkYXRlZF9hdCI6IjIwMTktMDctMDdUMjE6MzU6MzkuMjI4WiIsImVtYWlsIjoibXliYW5rdGVzdEBteWJhbmsuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJpc3MiOiJodHRwczovL2Rldi1teWJhbmsuYXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVjYTMwZGQ1MDQwOTljMGU0YWVjNDQ3MSIsImF1ZCI6IlIyemJTUUxGdmR5Y0FoUG5Geko2RkNCSmpPRkNRQW84IiwiaWF0IjoxNTYyNTc2MDI1LCJleHAiOjE1NjI2MTIwMjUsIm5vbmNlIjoiWjdoak5YR2p-TVJDY2Y1T1kwNTZVZnRQLUlmZWMzMy0ifQ.Bbhz3eKY3yBcPVwHgnrrecsGvH8zxpyVT-FrWfyNvm8xGdM3xSlvOxzp4D6ZNq7gVYvJv3RNkakODrI8ZdfEboBTp5gQZFBXG_0ci3_wOvyotTmsVh0KVDPMr31NUE8oetIfYzWiPLPaTaGQVRILNrJex5h6XdRihEbJqNVQADu9IjIBUBaVgeeXTJr1CpUfw__DDKYXWLWEz_CIrx_6COOViTbaOuFU6Mvoljkxt5XB2H9PNGJ8OAQ2hmxSj_HhmcUQ6hzsD2gej5R1AHIeSdJp-sGpLoZjyUBY07IK6ObDK2sYJXBQrNlWWnLMk0gnWva2AjvvGtCgm5zElnPifw";
 
 export function loadBalances() {
   const totals = {};
@@ -47,41 +47,41 @@ export function loadCashflow() {
 
   return async dispatch => {
     try {
-      const response = await axios.get('/analytics/chartData');
+      const response = await axios.get('/analytics/cashflow');
 
       console.log(response);
 
       if (response && response.data) {
         const data = response.data.data;
+        const cashflow = [];
 
-        if (data) {
-          const chartData = [];
-          const saving = _.find(data.savings, function (value) {
-            return (value.month === currentMonth);
-          });
+        const saving = _.find(data.savings, function (value) {
+          return (value.month === currentMonth);
+        });
 
-          const income = _.find(data.incomes, function (value) {
-            return (value.month === currentMonth);
-          });
+        const income = _.find(data.incomes, function (value) {
+          return (value.month === currentMonth);
+        });
 
-          const spendings = _.find(data.spendings, function (value) {
-            return (value.month === currentMonth);
-          });
+        const spendings = _.find(data.spendings, function (value) {
+          return (value.month === currentMonth);
+        });
 
-          chartData.push({
-            x: "Incomes", y: income ? income.totalIncome : 0
-          });
+        cashflow.push({
+          x: "Incomes", y: income ? income.totalIncome : 0
+        });
 
-          chartData.push({
-            x: "Spendings", y: spendings ? spendings.totalSpent : 0
-          });
+        cashflow.push({
+          x: "Spendings", y: spendings ? spendings.totalSpent : 0
+        });
 
-          chartData.push({
-            x: "Savings", y: saving ? saving.totalSavings : 0
-          });
+        cashflow.push({
+          x: "Savings", y: saving ? saving.totalSavings : 0
+        });
 
-          dispatch(chartDataLoaded(chartData));
-        }
+        dispatch(cashflowLoaded(cashflow));
+      } else {
+        dispatch(savingsLoaded([]));
       }
 
     } catch (error) {
@@ -105,33 +105,37 @@ export function loadSpendings() {
         }
       );
 
-      if (response && response.data) {
-        const chartData = [];
-        const spendings = response.data.data.spendings;
-
-        spendings.forEach(s => {
-          chartData.push({
-            name: s.category, total: s.totalSpent
-          });
-        });
-
-        dispatch(spendingsLoaded(chartData));
+      if (response && response.data && response.data.data) {
+        dispatch(spendingsLoaded(response.data.data.spendings));
+      } else {
+        dispatch(savingsLoaded([]));
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 
+export function loadSavings() {
+  const currentMonth = moment().subtract(3, "months").format(monthFormat);
 
+  return async dispatch => {
+    try {
+      const response = await axios.get(
+        "/analytics/savings/" + currentMonth, { "page-size": 4 }
+      );
+
+      if (response && response.data && response.data.data) {
+        dispatch(savingsLoaded(response.data.data.savings));
+      } else {
+        dispatch(savingsLoaded([]));
+      }
 
     } catch (error) {
       console.log(error);
     }
   };
 }
-// function startLoading() {
-//   return { type: START_ACCOUNTS_LOADING };
-// }
-
-// function clearAccounts() {
-//   return { type: CLEAR_ACCOUNTS };
-// }
 
 function balancesLoaded(balances) {
   console.log("balances>>>>>>"); console.log(balances);
@@ -141,11 +145,11 @@ function balancesLoaded(balances) {
   };
 }
 
-function chartDataLoaded(chartData) {
-  console.log("chartData>>>>>>"); console.log(chartData);
+function cashflowLoaded(cashflow) {
+  console.log("cashflow>>>>>>"); console.log(cashflow);
   return {
     type: CASHFLOW_LOADED,
-    chartData,
+    cashflow,
   };
 }
 
@@ -157,48 +161,13 @@ function spendingsLoaded(spendings) {
   };
 }
 
-// export function loadAccounts() {
-//   return async dispatch => {
-//     dispatch(startAccountsLoading());
-
-//     console.log("auth: " + axios.defaults.headers.common["Authorization"]);
-
-//     const accounts = await _loadAccounts();
-//     //const balances = await _loadBalances();
-
-//     if (accounts) {
-//       accounts.forEach(account => {
-//         const balance = _.find(balances, ["accountId", account.accountId]);
-//         if (balance) {
-//           account.currentBalance = balance.currentBalance;
-//           account.availableBalance = balance.availableBalance;
-//         }
-//       });
-//       dispatch(accountsLoaded(accounts));
-//     }
-//   };
-// }
-
-// export function refreshAccounts() {
-//   return async dispatch => {
-//     dispatch(startAccountsLoading());
-//     dispatch(clearAccounts());
-
-//     const accounts = await _loadAccounts();
-//     const balances = await loadBalances();
-
-//     if (accounts) {
-//       accounts.forEach(account => {
-//         const balance = _.find(balances, ["accountId", account.accountId]);
-//         if (balance) {
-//           account.currentBalance = balance.currentBalance;
-//           account.availableBalance = balance.availableBalance;
-//         }
-//       });
-//       dispatch(accountsLoaded(accounts));
-//     }
-//   };
-// }
+function savingsLoaded(savings) {
+  console.log("savings>>>>>>"); console.log(savings);
+  return {
+    type: SAVINGS_LOADED,
+    savings,
+  };
+}
 
 const defaultState = {
   accounts: [],
@@ -215,12 +184,17 @@ export default function DashboarStateReducer(state = defaultState, action) {
     case CASHFLOW_LOADED:
       return Object.assign({}, state, {
         isLoading: true,
-        chartData: action.chartData
+        cashflow: action.cashflow
       });
     case SPENDINGS_LOADED:
       return Object.assign({}, state, {
         isLoading: true,
         spendings: action.spendings
+      });
+    case SAVINGS_LOADED:
+      return Object.assign({}, state, {
+        isLoading: true,
+        savings: action.savings
       });
     default:
       return state;
