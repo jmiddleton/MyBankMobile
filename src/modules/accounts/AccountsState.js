@@ -46,8 +46,6 @@ export function loadAccounts() {
   return async dispatch => {
     dispatch(startAccountsLoading());
 
-    console.log("auth: " + axios.defaults.headers.common["Authorization"]);
-
     const accounts = await _loadAccounts();
     const balances = await _loadBalances();
 

@@ -175,12 +175,6 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: '#d6d7da',
     },
-    title: {
-        marginTop: 10,
-        width: 100,
-        textAlign: 'center',
-        fontSize: 16
-    },
     socialIcon: {
         marginTop: 10
     },

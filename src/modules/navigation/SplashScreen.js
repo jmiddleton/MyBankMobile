@@ -15,7 +15,7 @@ class SplashScreen extends React.Component {
         return new Promise((resolve) =>
             setTimeout(
                 () => { resolve('result') },
-                300
+                200
             )
         )
     }
@@ -41,11 +41,15 @@ class SplashScreen extends React.Component {
                     <View style={styles.section}>
                         <Image source={imageLogo} style={styles.logo} />
                     </View>
+
+                    <View style={styles.formContainer}>
+                    </View>
                 </ImageBackground>
             </View>
         );
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -64,6 +68,37 @@ const styles = StyleSheet.create({
         marginTop: 90,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    formContainer: {
+        flex: 2,
+    },
+    headerContainer: {
+        flex: 1,
+        marginTop: 20,
+        alignItems: 'center',
+        backgroundColor: '#eeeeee',
+        justifyContent: 'center',
+    },
+    socialContainer: {
+        flex: 2,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    tabContainer: {
+        flex: 0.5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        borderRadius: 1,
+        borderWidth: 0.5,
+        borderColor: '#d6d7da',
+    },
+    socialIcon: {
+        marginTop: 10
+    },
+    title: {
+        marginTop: 10,
     },
     logo: {
         flex: 1,
