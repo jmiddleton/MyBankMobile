@@ -7,13 +7,13 @@ import { colors, fonts } from '../../styles';
 import DashboardScreen from '../home/DashboardViewContainer';
 import AccountsScreen from '../accounts/AccountsViewContainer';
 import GridsScreen from '../grids/GridsViewContainer';
-import PagesScreen from '../pages/PagesViewContainer';
+import SpendingsScreen from '../spendings/SpendingsViewContainer';
 import ComponentsScreen from '../components/ComponentsViewContainer';
 
 const iconHome = require('../../../assets/images/tabbar/home2.png');
 const iconAccounts = require('../../../assets/images/tabbar/wallet.png');
 const iconGrids = require('../../../assets/images/tabbar/transfer.png');
-const iconTransactions = require('../../../assets/images/tabbar/transaction-list.png');
+const iconSpendings = require('../../../assets/images/tabbar/transaction-list.png');
 const iconComponents = require('../../../assets/images/tabbar/components.png');
 
 const headerBackground = require('../../../assets/images/topBarBg.png');
@@ -67,8 +67,8 @@ const TabNavigator = createBottomTabNavigator(
     Payments: {
       screen: GridsScreen
     },
-    Transactions: {
-      screen: PagesScreen
+    Spendings: {
+      screen: SpendingsScreen
     },
     Others: {
       screen: ComponentsScreen
@@ -89,8 +89,8 @@ const TabNavigator = createBottomTabNavigator(
           case 'Payments':
             iconSource = iconGrids;
             break;
-          case 'Transactions':
-            iconSource = iconTransactions;
+          case 'Spendings':
+            iconSource = iconSpendings;
             break;
           case 'Others':
             iconSource = iconComponents;

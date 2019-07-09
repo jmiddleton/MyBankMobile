@@ -30,7 +30,7 @@ export default class CashflowScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>CASHFLOW</Text>
-                <View style={{ height: 215, paddingTop: 10, paddingLeft: 0, paddingBottom: 20, flexDirection: 'row' }}>
+                <View style={{ height: 210, paddingTop: 10, paddingLeft: 0, paddingBottom: 15, flexDirection: 'row' }}>
                     <YAxis
                         data={chartData}
                         yAccessor={({ item }) => item.total}
@@ -44,12 +44,14 @@ export default class CashflowScreen extends React.Component {
                             data={chartData}
                             yAccessor={({ item }) => item.total}
                             spacing={0.2}
+                            spacingOuter={0.3}
+                            spacingInner={0.2}
                             bandwidth={5}
                             contentInset={{ top: 0, bottom: 10 }}>
                             <Grid />
                         </BarChart>
                         <XAxis
-                            style={{ marginTop: 0 }}
+                            style={{ marginTop: 0}}
                             data={this.props.cashflow}
                             formatLabel={(value, index) => this.props.cashflow[index].name}
                             labelStyle={{ color: 'black' }}
