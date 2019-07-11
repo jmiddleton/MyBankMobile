@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import moment from 'moment';
 
 import LinearGradient from 'react-native-linear-gradient';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
@@ -17,13 +18,15 @@ import {
 } from 'react-native';
 import { colors, fonts } from '../../styles';
 
+const monthFormat = "YYYY-MM";
+
 export default class SpendingsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       refreshing: false,
       menuStateIndex: 0,
-      selectedMonth: "2019-07"
+      selectedMonth: moment().format(monthFormat)
     };
   }
 
@@ -77,6 +80,15 @@ export default class SpendingsScreen extends React.Component {
       </View>
     );
 
+    const pages = [];
+    let i = 4;
+    let month= moment();
+    while (i >= 0 ) {
+      month = moment().subtract(i, 'month');
+      pages.push((<Page key={i} tabLabel={{ label: month.format('MMMM') }} month={month.format(monthFormat)} />));
+      i--;
+    }
+
     return (
       <ScrollView
         style={styles.container}
@@ -98,10 +110,7 @@ export default class SpendingsScreen extends React.Component {
           tabBarActiveTextColor="#53ac49"
           renderTabBar={() => <TabBar underlineColor="#53ac49"
             tabMargin={45} tabStyles={styles.tabStyle} />}>
-          <Page tabLabel={{ label: "April" }} month="2019-04" />
-          <Page tabLabel={{ label: "May" }} month="2019-05" />
-          <Page tabLabel={{ label: "June" }} month="2019-06" />
-          <Page tabLabel={{ label: "July" }} month="2019-07" />
+          {pages}
         </ScrollableTabView>
 
       </ScrollView>
