@@ -7,7 +7,7 @@ import reducer from './reducer';
 
 import axios from 'axios';
 
-axios.defaults.baseURL = "http://localhost:3000/mybank/v1";
+axios.defaults.baseURL = "http://192.168.1.6:3000/mybank/v1";
 axios.defaults.headers.common['x-api-key'] = "d41d8cd98f00b204e9800998ecf8427e";
 
 // Add a response interceptor

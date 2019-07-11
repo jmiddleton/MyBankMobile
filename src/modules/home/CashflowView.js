@@ -25,6 +25,14 @@ export default class CashflowScreen extends React.Component {
                 s.svg = { fill: colors[index], strokeWidth: 1 };
                 chartData.push(s);
             }
+        } else {
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.title}>CASHFLOW</Text>
+                    <View style={{ height: 210, paddingTop: 10, paddingLeft: 0, paddingBottom: 15, flexDirection: 'row' }}>
+                    </View>
+                </View>
+            );
         }
 
         return (
@@ -51,7 +59,7 @@ export default class CashflowScreen extends React.Component {
                             <Grid />
                         </BarChart>
                         <XAxis
-                            style={{ marginTop: 0}}
+                            style={{ marginTop: 0 }}
                             data={this.props.cashflow}
                             formatLabel={(value, index) => this.props.cashflow[index].name}
                             labelStyle={{ color: 'black' }}

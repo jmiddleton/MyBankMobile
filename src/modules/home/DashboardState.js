@@ -8,7 +8,7 @@ const CASHFLOW_LOADED = 'DashboarState/CASHFLOW_LOADED';
 const SPENDINGS_LOADED = 'DashboarState/SPENDINGS_LOADED';
 const SAVINGS_LOADED = 'DashboarState/SAVINGS_LOADED';
 
-axios.defaults.headers.common["Authorization"] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1rSTBOakJET0VVeU5qSTRSREJFTURWR1JUVTJSREV4TmpsRlEwVXdSVU01UXpFMFFrWTNRZyJ9.eyJuaWNrbmFtZSI6Im15YmFua3Rlc3QiLCJuYW1lIjoibXliYW5rdGVzdEBteWJhbmsuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyL2Y2OGY0NDA5M2FiZWFjMWEyMjBmNzRlZjdiODdjNzNiP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGbXkucG5nIiwidXBkYXRlZF9hdCI6IjIwMTktMDctMDlUMDE6NTI6NTUuODMyWiIsImVtYWlsIjoibXliYW5rdGVzdEBteWJhbmsuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJpc3MiOiJodHRwczovL2Rldi1teWJhbmsuYXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVjYTMwZGQ1MDQwOTljMGU0YWVjNDQ3MSIsImF1ZCI6IlIyemJTUUxGdmR5Y0FoUG5Geko2RkNCSmpPRkNRQW84IiwiaWF0IjoxNTYyNjM3MjYwLCJleHAiOjE1NjI2NzMyNjAsIm5vbmNlIjoiWHFhR1lSQzM2WmFReUtHa2hRa2FwSlBtQXBqaENxeTcifQ.eyXsB68E3KGMZI4GVYop-89bHIGM5zO5D8pCj61M42FAAbE42KtP9SV8Tbdn8w00j6zLArKsc54httsMzyapB-8l2Hi41OJ4E9xCNuzoN0_lK7K-WGDZQ4Pl2jXiMCf3bSecsHyqeDxdrB37zCerjoiO4rX8hqY0FgC-9v9_h4VP_W1XKXwSse7k6K0YUnwJ-SOGiQ1YbzMhKsmXtdly4oRvTF0qU6EoJEOHMFiomFwH-kvy1o9RQKWjFrWakzuOELkmmVrMlNJW-cSPF3anwqXVuEYVNqZucVeROfNG44amTQWxrsNUm4YD7YtCt8cOmov9mYhWihwjakADlg42mQ";
+axios.defaults.headers.common["Authorization"] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1rSTBOakJET0VVeU5qSTRSREJFTURWR1JUVTJSREV4TmpsRlEwVXdSVU01UXpFMFFrWTNRZyJ9.eyJuaWNrbmFtZSI6Im15YmFua3Rlc3QiLCJuYW1lIjoibXliYW5rdGVzdEBteWJhbmsuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyL2Y2OGY0NDA5M2FiZWFjMWEyMjBmNzRlZjdiODdjNzNiP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGbXkucG5nIiwidXBkYXRlZF9hdCI6IjIwMTktMDctMDlUMjE6NDU6NDkuNjY1WiIsImVtYWlsIjoibXliYW5rdGVzdEBteWJhbmsuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJpc3MiOiJodHRwczovL2Rldi1teWJhbmsuYXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVjYTMwZGQ1MDQwOTljMGU0YWVjNDQ3MSIsImF1ZCI6IlIyemJTUUxGdmR5Y0FoUG5Geko2RkNCSmpPRkNRQW84IiwiaWF0IjoxNTYyNzk3NjYzLCJleHAiOjE1NjI4MzM2NjMsIm5vbmNlIjoiTGN2clBwbzEwMVZ2TE1TU2UzSktnZVRMd2NkUi1wa0YifQ.TJjV5JW9YkNbN01iQvO6MqpXwTw_LBcYK4lhzmLtZ7wEZkf7n-8vYrjQ4XBMToEYmTpHtvI3ZZ8m_2br70cZsibSiEPe4-RfZYZkzlGlZ_1IqPggVVo-iU3MiV5cAhX1C-_AaS2MQzWuc1yfplngy8Uxh0p8iYUnQRK250HZKpTrVt8gc54T1D_5CRzG5j22fVWVnwbBzItdaq_wbn3_ykpPZoOO-WDil1lgqkFusRJpuKprgsQEtVBqjpOfFi4PBbeIut1RLdlNBgOxNMfQ92UcZFkX4d1f583XUvwS0Ylckg6jPIKlGuLbDSDnEqVYEy91uHbCMMd1-4O_yNvteA";
 
 export function loadBalances() {
   const totals = {};
@@ -38,6 +38,7 @@ export function loadBalances() {
       dispatch(balancesLoaded(totals));
     } catch (error) {
       console.log(error);
+      dispatch(balancesLoaded(totals));
     }
   };
 }
@@ -86,6 +87,7 @@ export function loadCashflow() {
 
     } catch (error) {
       console.log(error);
+      dispatch(cashflowLoaded([]));
     }
   };
 }
@@ -112,6 +114,7 @@ export function loadSpendings() {
       }
     } catch (error) {
       console.log(error);
+      dispatch(spendingsLoaded([]));
     }
   };
 }
@@ -133,6 +136,7 @@ export function loadSavings() {
 
     } catch (error) {
       console.log(error);
+      dispatch(savingsLoaded([]));
     }
   };
 }

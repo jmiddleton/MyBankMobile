@@ -1,9 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 
+import LinearGradient from 'react-native-linear-gradient';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import TabBar from "react-native-underline-tabbar";
-import { Button, RadioGroup, Dropdown } from '../../components';
+import { RadioGroup } from '../../components';
 
 import {
   StyleSheet,
@@ -11,7 +12,6 @@ import {
   Text,
   FlatList,
   RefreshControl,
-  TouchableOpacity,
   Image,
   ScrollView,
 } from 'react-native';
@@ -29,13 +29,32 @@ export default class SpendingsScreen extends React.Component {
 
   renderCategories = ({ item }) => (
     <View style={styles.itemThreeContainer}>
-      <Image source={categoryIcon[item.category]} style={styles.categoryIcon} />
+      <Image source={categoryConfig[item.category].icon} style={{
+        height: 35,
+        width: 35,
+        marginRight: 10,
+        tintColor: categoryConfig[item.category].color
+      }} />
       <View style={styles.itemThreeContent}>
-        <Text style={styles.itemThreeTitle} numberOfLines={1}>{item.category}</Text>
+        <View style={styles.itemThreeMetaContainer}>
+          <Text style={styles.itemThreeTitle} numberOfLines={1}>{item.category}</Text>
+          <Text style={styles.itemBalance} numberOfLines={1}>$ {item.totalSpent}</Text>
+        </View>
+        <View>
+          <LinearGradient
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            colors={[categoryConfig[item.category].color, categoryConfig[item.category].color, "#FFFFFF"]}
+            style={{ height: 10, borderRadius: 2, width: 15 * (Math.abs(item.totalSpent) / 280) }}>
+            <Text>
+              {' '}
+            </Text>
+          </LinearGradient>
+        </View>
+        <Text style={styles.itemAvBalance} numberOfLines={1}>{item.totalOfTrans} transactions</Text>
       </View>
       <View>
-        <Text style={styles.itemBalance} numberOfLines={1}>$ {item.totalSpent}</Text>
-        <Text style={styles.itemAvBalance} numberOfLines={1}>{item.totalOfTrans} transactions</Text>
+
       </View>
     </View>
   );
@@ -44,7 +63,7 @@ export default class SpendingsScreen extends React.Component {
     const menuState = ['Categories', 'Merchants', 'Transactions'];
 
     const Page = ({ month }) => (
-      <View style={styles.container}>
+      <View>
         <FlatList
           keyExtractor={item =>
             item.category
@@ -133,7 +152,7 @@ const styles = StyleSheet.create({
     color: '#B2B2B2',
   },
   itemBalance: {
-    fontFamily: fonts.primaryRegular,
+    fontFamily: fonts.primaryBold,
     fontSize: 15,
     textAlign: 'right',
     marginRight: 2
@@ -170,8 +189,9 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   categoryIcon: {
-    height: 30,
-    width: 30,
+    height: 35,
+    width: 35,
+    marginRight: 10
   },
   itemThreeContent: {
     flex: 1,
@@ -185,8 +205,9 @@ const styles = StyleSheet.create({
   },
   itemThreeTitle: {
     fontFamily: fonts.primaryRegular,
-    fontSize: 16,
+    fontSize: 14,
     color: '#5F5F5F',
+    padding: 5
   },
   itemThreeSubtitle: {
     fontFamily: fonts.primaryRegular,
@@ -204,28 +225,31 @@ const styles = StyleSheet.create({
   },
   tabStyle: {
     width: 90
-  }
+  },
+  linearGradient: {
+    borderRadius: 5,
+  },
 });
 
-const categoryIcon = {
-  'Business': require('../../../assets/categories/Business.png'),
-  'Cash': require('../../../assets/categories/Cash.png'),
-  'Donations': require('../../../assets/categories/Donations.png'),
-  'EatingOut': require('../../../assets/categories/EatingOut.png'),
-  'Education': require('../../../assets/categories/Education.png'),
-  'Entertainment': require('../../../assets/categories/Entertainment.png'),
-  'FeesAndInterest': require('../../../assets/categories/FeesAndInterest.png'),
-  'General': require('../../../assets/categories/General.png'),
-  'Groceries': require('../../../assets/categories/Groceries.png'),
-  'Health': require('../../../assets/categories/Health.png'),
-  'Housing': require('../../../assets/categories/Housing.png'),
-  'Income': require('../../../assets/categories/Income.png'),
-  'Others': require('../../../assets/categories/Others.png'),
-  'PersonalCare': require('../../../assets/categories/PersonalCare.png'),
-  'Shopping': require('../../../assets/categories/Shopping.png'),
-  'Transfers': require('../../../assets/categories/Transfers.png'),
-  'Transport': require('../../../assets/categories/Transport.png'),
-  'Travel': require('../../../assets/categories/Travel.png'),
-  'Uncategorized': require('../../../assets/categories/Uncategorized.png'),
-  'Utilities': require('../../../assets/categories/Utilities.png'),
+const categoryConfig = {
+  'Business': { icon: require('../../../assets/categories/Business.png'), color: "#ffc247" },
+  'Cash': { icon: require('../../../assets/categories/Cash.png'), color: "#f55d5d" },
+  'Donations': { icon: require('../../../assets/categories/Donations.png'), color: "#9964e3" },
+  'EatingOut': { icon: require('../../../assets/categories/EatingOut.png'), color: "#78c448" },
+  'Education': { icon: require('../../../assets/categories/Education.png'), color: "#547fff" },
+  'Entertainment': { icon: require('../../../assets/categories/Entertainment.png'), color: "#17a2b8" },
+  'FeesAndInterest': { icon: require('../../../assets/categories/FeesAndInterest.png'), color: "#E4A537" },
+  'General': { icon: require('../../../assets/categories/General.png'), color: "#B62070" },
+  'Groceries': { icon: require('../../../assets/categories/Groceries.png'), color: "#A7B620" },
+  'Health': { icon: require('../../../assets/categories/Health.png'), color: "#20B6B6" },
+  'Housing': { icon: require('../../../assets/categories/Housing.png'), color: "#ffc247" },
+  'Income': { icon: require('../../../assets/categories/Income.png'), color: "#ffc247" },
+  'Others': { icon: require('../../../assets/categories/Others.png'), color: "#ffc247" },
+  'PersonalCare': { icon: require('../../../assets/categories/PersonalCare.png'), color: "#ffc247" },
+  'Shopping': { icon: require('../../../assets/categories/Shopping.png'), color: "#9964e3" },
+  'Transfers': { icon: require('../../../assets/categories/Transfers.png'), color: "#ffc247" },
+  'Transport': { icon: require('../../../assets/categories/Transport.png'), color: "#f55d5d" },
+  'Travel': { icon: require('../../../assets/categories/Travel.png'), color: "#9964e3" },
+  'Uncategorized': { icon: require('../../../assets/categories/Uncategorized.png'), color: "#78c448" },
+  'Utilities': { icon: require('../../../assets/categories/Utilities.png'), color: "#ffc247" },
 }

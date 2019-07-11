@@ -46,13 +46,22 @@ export default class SpendingsScreen extends React.Component {
         const deviceWidth = Dimensions.get('window').width;
         const chartData = [];
 
+        if (!this.props.spendings) {
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.title}>SPENDINGS</Text>
+                    <View style={styles.metaContainer}>
+                    </View></View>
+            );
+        }
+
         for (let index = 0; index < this.props.spendings.length; index++) {
             const s = this.props.spendings[index];
             chartData.push({
                 key: s.category,
                 value: s.totalSpent,
                 svg: { fill: colors[index] },
-                arc: { outerRadius: label === s.category ? '95%': '90%', padAngle: label === s.category ? 0.1 : 0 },
+                arc: { outerRadius: label === s.category ? '95%' : '90%', padAngle: label === s.category ? 0.1 : 0 },
                 onPress: () => this.setState({ selectedSlice: { label: s.category, value: s.totalSpent } })
             });
         }
