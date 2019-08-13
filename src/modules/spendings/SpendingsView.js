@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
 
 const categoryConfig = {
   'Business': { icon: require('../../../assets/categories/Business.png'), color: "#ffc247" },
-  'Cash': { icon: require('../../../assets/categories/Cash.png'), color: "#f55d5d" },
+  'Cash': { icon: require('../../../assets/categories/Cash.png'), color: "#1EC9E8" },
   'Donations': { icon: require('../../../assets/categories/Donations.png'), color: "#9964e3" },
   'EatingOut': { icon: require('../../../assets/categories/EatingOut.png'), color: "#78c448" },
   'Education': { icon: require('../../../assets/categories/Education.png'), color: "#547fff" },
@@ -255,10 +255,10 @@ const categoryConfig = {
   'Income': { icon: require('../../../assets/categories/Income.png'), color: "#ffc247" },
   'Others': { icon: require('../../../assets/categories/Others.png'), color: "#ffc247" },
   'PersonalCare': { icon: require('../../../assets/categories/PersonalCare.png'), color: "#ffc247" },
-  'Shopping': { icon: require('../../../assets/categories/Shopping.png'), color: "#9964e3" },
+  'Shopping': { icon: require('../../../assets/categories/Shopping.png'), color: "#FF7272" },
   'Transfers': { icon: require('../../../assets/categories/Transfers.png'), color: "#ffc247" },
-  'Transport': { icon: require('../../../assets/categories/Transport.png'), color: "#f55d5d" },
+  'Transport': { icon: require('../../../assets/categories/Transport.png'), color: "#CE3D1D" },
   'Travel': { icon: require('../../../assets/categories/Travel.png'), color: "#9964e3" },
-  'Uncategorized': { icon: require('../../../assets/categories/Uncategorized.png'), color: "#78c448" },
+  'Uncategorized': { icon: require('../../../assets/categories/Uncategorized.png'), color: "#D7E1E9" },
   'Utilities': { icon: require('../../../assets/categories/Utilities.png'), color: "#ffc247" },
 }
